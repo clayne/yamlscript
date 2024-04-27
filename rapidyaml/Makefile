@@ -1,11 +1,24 @@
+include ../common/base.mk
+include $(COMMON)/binding.mk
+include $(COMMON)/java.mk
 
-build: rapidyaml
-	cmake -S $< -B $<-build \
-	    -D BUILD_SHARED_LIBS=OFF \
-	    -D RYML_WITH_TAB_TOKENS=ON \
-	    -D CMAKE_INSTALL_PREFIX=`pwd`/$<-install
-	cmake --build $<-build --parallel --target install
+YAMLSCRIPT_JAVA_JAR := target/yamlscript-0.1.58.jar
 
+#------------------------------------------------------------------------------
 
-rapidyaml:
-	git clone --recursive https://github.com/biojppm/rapidyaml -b newparser
+$(MVN_COMMANDS):: $(JAVA_INSTALLED) $(LIBYAMLSCRIPT_SO_FQNP)
+	mvn $@
+
+release: $(JAVA_INSTALLED) $(LIBYAMLSCRIPT_SO_FQNP) test package
+ifndef n
+	$(error 'make $@' needs the n variable set to the new version)
+endif
+	mvn deploy:deploy-file \
+	    -s ~/.mvn-user-settings.xml \
+	    -Dfile=$(YAMLSCRIPT_JAVA_JAR) \
+	    -DpomFile=pom.xml \
+	    -DrepositoryId=clojars \
+	    -Durl=https://clojars.org/repo/
+
+clean::
+	$(RM) -r reports/ target/
