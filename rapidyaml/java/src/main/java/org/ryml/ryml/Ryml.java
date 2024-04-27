@@ -15,22 +15,10 @@ public class Ryml
         this.libryml = LibRyml.library();
     }
 
-    public String getRAWResult(String ysCode) throws RuntimeException
+    public String parseYS(String src) throws RuntimeException
     {
-        String jsonData = libryml.parse_yamlscript_to_events(ysCode);
-        System.out.println("foooo!! " + jsonData);
-        return jsonData;
-    }
-
-    public JSONObject evaluate(String ysCode)
-    {
-        JSONObject jsonData = new JSONObject(getRAWResult(ysCode));
-
-        if (jsonData.has("error") && !jsonData.isNull("error")) {
-            String error = jsonData.getString("error");
-            throw new RuntimeException(error);
-        }
-
+        String jsonData = libryml.parse_yamlscript_to_events(src);
+        System.out.println("foooo!!\n" + jsonData);
         return jsonData;
     }
 
