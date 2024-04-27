@@ -53,10 +53,7 @@ public class LibRyml {
         if (new File(path).exists()) return path;
 
         throw new RuntimeException(
-            "Shared library file " + name + " not found\n" +
-            "Try: curl -sSL ryml.org/install | VERSION=" +
-            Ryml.RYML_VERSION + " LIB=1 bash\n" +
-            "See: https://github.com/yaml/ryml/wiki/Installing-Ryml"
+            "Shared library file " + name + " not found\n"
         );
     }
 

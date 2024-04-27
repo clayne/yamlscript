@@ -71,23 +71,17 @@ public class Ryml
     }
 
     private final ILibRyml libryml;
-    private final PointerByReference isolateRef;
 
     public Ryml()
     {
         this.libryml = LibRyml.library();
-        this.isolateRef = new PointerByReference();
     }
 
     public String getRAWResult(String ysCode) throws RuntimeException
     {
         PointerByReference threadRef = new PointerByReference();
-        libryml.graal_create_isolate(null, isolateRef, threadRef);
 
         String jsonData = libryml.load_ys_to_json(threadRef.getValue(), ysCode);
-
-        int result = libryml.graal_tear_down_isolate(threadRef.getValue());
-        if (result != 0) throw new RuntimeException("Failed to tear down isolate");
 
         return jsonData;
     }
