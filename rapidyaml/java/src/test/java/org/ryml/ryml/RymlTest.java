@@ -36,6 +36,6 @@ public class RymlTest extends TestCase
     {
         Ryml ryml = new Ryml();
         String evts = ryml.parseYS("a: 1");
-        assertEquals(evts, "");
+        assertEquals(evts, "+STR\n+DOC\n+MAP\n=VAL :a\n=VAL :1\n-MAP\n-DOC\n-STR\n");
     }
 }
