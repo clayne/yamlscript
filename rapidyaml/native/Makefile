@@ -4,7 +4,7 @@ RAPIDYAML_TAG := yamlscript
 
 build: rapidyaml
 	cmake -S $< -B $<-build \
-	    -D BUILD_SHARED_LIBS=OFF \
+	    -D BUILD_SHARED_LIBS=ON \
 	    -D RYML_WITH_TAB_TOKENS=ON \
 	    -D RYML_DEFAULT_CALLBACK_USES_EXCEPTIONS=ON \
 	    -D CMAKE_INSTALL_PREFIX=`pwd`/$<-install

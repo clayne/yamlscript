@@ -1,13 +1,17 @@
-include ../common/base.mk
+include ../../common/base.mk
 include $(COMMON)/binding.mk
 include $(COMMON)/java.mk
 
 RYML_JAVA_JAR := target/ryml-0.5.0.jar
 
 export LD_LIBRARY_PATH := \
-  $(ROOT)/rapidyaml/rapidyaml-install/lib:$(LD_LIBRARY_PATH)
+  $(ROOT)/rapidyaml/native/rapidyaml-install/lib
 
 #------------------------------------------------------------------------------
+
+x:
+	@echo $(LD_LIBRARY_PATH)
+	@echo $$LD_LIBRARY_PATH
 
 $(MVN_COMMANDS):: $(JAVA_INSTALLED) $(LIBRYML_SO_FQNP)
 	mvn $@
