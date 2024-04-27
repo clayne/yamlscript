@@ -12,13 +12,13 @@
 
   <artifactId>ryml</artifactId>
 
-  <version>0.1.58</version>
+  <version>0.5.0</version>
 
   <name>ryml</name>
 
   <description>
-    Ryml is a functional programming language whose syntax is encoded in
-    YAML.
+    Ryml, shorthand for rapidyaml. rapidyaml is a C++ library to parse
+    and emit YAML, and do it fast.
   </description>
 
   <url>https://ryml.org</url>
