@@ -1,17 +1,24 @@
-include ../../common/base.mk
-include $(COMMON)/binding.mk
+include ../common/base.mk
 include $(COMMON)/java.mk
 
-RYML_JAVA_JAR := target/ryml-0.5.0.jar
+RYML_VERSION := 0.5.0
+
+RYML_JAVA_JAR := target/ryml-$(RYML_VERSION).jar
+
+LIBRARY := native/rapidyaml-install/lib/libryml.$(SO).$(RYML_VERSION)
+
 
 export LD_LIBRARY_PATH := \
   $(ROOT)/rapidyaml/native/rapidyaml-install/lib
 
 #------------------------------------------------------------------------------
 
-x:
-	@echo $(LD_LIBRARY_PATH)
-	@echo $$LD_LIBRARY_PATH
+build:: $(LIBRARY) package
+
+$(LIBRARY):
+	$(MAKE) -C native build
+
+test:: build
 
 $(MVN_COMMANDS):: $(JAVA_INSTALLED) $(LIBRYML_SO_FQNP)
 	mvn $@
@@ -28,4 +35,8 @@ endif
 	    -Durl=https://clojars.org/repo/
 
 clean::
+	$(MAKE) -C native $@
 	$(RM) -r reports/ target/
+
+realclean::
+	$(MAKE) -C native $@

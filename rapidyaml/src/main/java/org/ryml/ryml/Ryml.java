@@ -18,7 +18,6 @@ public class Ryml
     public String parseYS(String src) throws RuntimeException
     {
         String jsonData = libryml.parse_yamlscript_to_events(src);
-        System.out.println("foooo!!\n" + jsonData);
         return jsonData;
     }
 
